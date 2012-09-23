@@ -7,16 +7,16 @@ import requests
 import simplejson as json
 
 def create_bulk_data_list(result_shelve):
-    source_file = open('source.json', 'r')
+    source_db = shelve.open('source.shelve')
+
     data_list = []
     data = {'data':[]}
     count = 0
-    for line in source_file.readlines():
-        line_json = json.loads(line.rstrip().rstrip(','))
-        if str(line_json['id']) not in result_shelve:
-            data['data'].append({'text': line_json['text'], 'id': line_json['id']})
+    for key, item in source_db.items():
+        if key not in result_shelve:
+            data['data'].append({'text': item['text'], 'id': item['id']})
             count += 1
-            if count > 1000:
+            if count > 5000:
                 count = 0
                 data_list.append(json.dumps(data))
                 data = {'data':[]}
@@ -39,9 +39,12 @@ def run():
         print('processing data set %d' % process_index)
         process_index += 1
         response = requests.post('http://www.sentiment140.com/api/bulkClassifyJson?appid=zz_fish@hotmail.com',data)
+        print response.text
         response_json = json.loads(response.text)
         for item in response_json['data']:
             result_shelve[str(item['id'])] = item
+
+        break
 
 
 if __name__ == '__main__':
