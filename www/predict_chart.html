@@ -58,7 +58,7 @@
 			
 	<script type='text/javascript'>
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
-		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data');
+		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data_2');
 	    window.series       = [];
 		window.chartDataDem = [];
 		window.chartDataGOP = [];
@@ -84,7 +84,7 @@
         twitDataRef.on('child_added', function(snapshot) {
             var data = snapshot.val();
 
-            if( window.chartTweets[data.Date] === undefined ) {
+            if( window.chartTweets[data.date] === undefined ) {
                 window.chartTweets[data.date] = data;
             }
         });
