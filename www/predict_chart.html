@@ -31,11 +31,17 @@
 		function initChart() {
 			window.graph = new Rickshaw.Graph( {
 		        element: document.querySelector("#chart"),
+		        renderer: 'line',
 		        width: 4000,
 		        height: 250,
-		        series: [ {
-		                color: 'steelblue',
-		                data: window.chartData
+		        series: [ 
+		        {
+	                color: 'steelblue',
+	                data: window.chartDataDem
+		        },
+		        {
+		        		color: 'red',
+		        		data: window.chartDataGOP	
 		        } ]
 			} );
 		}
