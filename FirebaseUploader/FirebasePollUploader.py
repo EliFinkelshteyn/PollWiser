@@ -15,7 +15,7 @@ if args.data_type == 'electoral_vote':
     data_file = '../Data/electoral_vote.csv'
     schema = ['Day','Len','State','EV','Dem','GOP','Ind','Date','','','','',
               '','','','Pollster']
-if args.data_type == 'rcp1':
+if args.data_type == 'rcp':
     data_file = '../Data/realclearpolitics.csv'
     schema = ['Poll',"Date","Sample","MoE","Obama","Romney","Spread"]
 f = Firebase("http://demo.firebase.com/seifeet/%s" % args.data_type)
@@ -34,7 +34,10 @@ def getDates(date_range):
     dates = dates[0].split(' - ')
     new_dates = []
     for date in dates:
-        date +='/2012'
+        if date[:2] in ('10','11','12'):
+            date += '/2011'
+        else:
+            date +='/2012'
         new_dates.append(datetime.datetime.strptime(date, '%m/%d/%Y'))
     dates = generate_dates(new_dates[0], new_dates[1])
     new_dates = []
@@ -51,7 +54,7 @@ with open(data_file, 'rb') as polls_csv:
         dates = getDates(row_dict['Date'])
         for date in dates:
             row_dict['Date'] = date
-            print row_dict
+            #print row_dict
             print 'about to push!'
             f.push(row_dict)
             print 'done!'

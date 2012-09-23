@@ -9,6 +9,7 @@ source_data = json.load(codecs.open('source.json', 'r', encoding=code))
 output_file = codecs.open('broken_result.csv', 'wb', encoding=code)
 
 for item in source_data:
-    output_file.write( item['text'] + '\n' );
+    line = item['text'].replace('"', '""').replace('=','')
+    output_file.write( '"' + line  + '"\n' )
 
 output_file.close()
