@@ -50,8 +50,6 @@
 	        <div id="chart">&nbsp;</div>
 	        <div id="legend">&nbsp;</div>
             <div id="timeline">&nbsp;</div>
-            <div id="slider">&nbsp;</div>
-            <div id="smoother">&nbsp;</div>
 	</div>
 	<div id='poll_agency_cloud'>
 		<iframe id='cloud_frame' src="poll_cloud.html">
@@ -130,11 +128,6 @@
             var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
                 graph: window.graph,
                 legend: legend
-            } );
-
-            var smoother = new Rickshaw.Graph.Smoother( {
-                graph: window.graph,
-                element: document.querySelector('#smoother')
             } );
 
             var ticksTreatment = 'glow';
