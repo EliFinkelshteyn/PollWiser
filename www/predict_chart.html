@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Pollwiser</title>
+    <link type="text/css" rel="stylesheet" href="rickshaw.min.css">
     <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 	<script src='vendor/d3.min.js'></script>
@@ -9,54 +10,123 @@
   </head>
   <body>
   	<div id='poll_data'>&nbsp;</div>
-  	<div id="chart">&nbsp;</div>
+
+	<style>
+		#chart_container {
+		        display: inline-block;
+		        font-family: Arial, Helvetica, sans-serif;
+		}
+		#chart {
+		        float: left;
+		}
+		#legend {
+		        float: left;
+		        margin-left: 15px;
+		}
+		#offset_form {
+		        float: left;
+		        margin: 2em 0 0 15px;
+		        font-size: 13px;
+		}
+		#y_axis {
+		        float: left;
+		        width: 40px;
+		}
+	</style>
+	
+	<div id="chart_container">
+	        <div id="y_axis">&nbsp;</div>
+	        <div id="chart">&nbsp;</div>
+	        <div id="legend">&nbsp;</div>
+	        <form id="offset_form" class="toggler">
+	                <input type="radio" name="offset" id="lines" value="lines" checked>
+	                <label class="lines" for="lines">lines</label><br>
+	                <input type="radio" name="offset" id="stack" value="zero">
+	                <label class="stack" for="stack">stack</label>
+	        </form>
+	</div>
+
 	<script type='text/javascript'>
-		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp1');
+		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
 		
+	    window.series       = [];
 		window.chartDataDem = [];
 		window.chartDataGOP = [];
-		var i = 0;
+		window.chartDates   = {};
+		window.polls        = {};
+				
 		pollDataRef.on('child_added', function(snapshot) {
 			var data = snapshot.val();
 			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
-
-			window.chartDataDem.push({x:parseInt(data.Date), y:parseFloat(data.Obama)});
-			window.chartDataGOP.push({x:parseInt(data.Date), y:parseFloat(data.Romney)});
-			++i;
-			if (i==100) {
-				initChart();
+			if( window.polls[data.Poll] === undefined ) {
+				window.polls[data.Poll] = 0;
+			} else {
+				window.polls[data.Poll] = window.polls[data.Poll] + 1;
+			}
+			if( window.chartDates[data.Date] === undefined ) {
+				window.chartDataDem.push({x:parseInt(data.Date), y:parseFloat(data.Obama)});
+				window.chartDataGOP.push({x:parseInt(data.Date), y:parseFloat(data.Romney)});
+				window.chartDates[data.Date] = data.Date;
 			}
 		});
 		
-		setInterval(function() { printChart() },3000);
-				
+		function updateSeries() {
+			window.chartDataDem.sort(function(a,b){return a.x - b.x});
+			series.push({ name: 'Obama', color: 'steelblue', data: window.chartDataDem });
+			
+			window.chartDataGOP.sort(function(a,b){return a.x - b.x});
+			series.push({ name: 'Romney', color: 'red', data: window.chartDataGOP });
+		}
+
 		function initChart() {
 			window.graph = new Rickshaw.Graph( {
 		        element: document.querySelector("#chart"),
 		        renderer: 'line',
-		        width: 4000,
+		        width: 1200,
 		        height: 250,
-		        series: [ 
-		        {
-	                color: 'steelblue',
-	                data: window.chartDataDem
-		        },
-		        {
-		        		color: 'red',
-		        		data: window.chartDataGOP	
-		        } ]
+		        series: window.series
 			} );
+			
+			var axes = new Rickshaw.Graph.Axis.Time( { graph: window.graph } );
+			var y_ticks = new Rickshaw.Graph.Axis.Y( {
+				element: document.querySelector("#y_axis"),
+				graph: window.graph,
+				orientation: 'left',
+				tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+			} );
+			
+			var legend = new Rickshaw.Graph.Legend( {
+			        element: document.querySelector('#legend'),
+			        graph: window.graph
+			} );
+			
+			var offsetForm = document.getElementById('offset_form');
+
+			offsetForm.addEventListener('change', function(e) {
+			        var offsetMode = e.target.value;
+			
+			        if (offsetMode == 'lines') {
+			                graph.setRenderer('line');
+			                graph.offset = 'zero';
+			        } else {
+			                graph.setRenderer('stack');
+			                graph.offset = offsetMode;
+			        }       
+			        graph.render();
+			
+			}, false);
 		}
 
 		function printChart() {
 			//$("#chart").html('');
-			window.chartDataDem.sort(function(a,b){return a.x - b.x});
-			window.chartDataGOP.sort(function(a,b){return a.x - b.x});
-			console.log(window.chartDataGOP);
-			//var axes = new Rickshaw.Graph.Axis.Time( { graph: window.graph } );
+			
 			window.graph.render();
 		}
+		
+		setTimeout("updateSeries(); initChart(); printChart();", 2000);
+		setInterval("updateSeries(); printChart();", 5000);
 	</script>
+	
   </body>
 </html>
 

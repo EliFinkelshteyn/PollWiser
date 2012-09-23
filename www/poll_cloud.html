@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Pollwiser</title>
+    <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
+	<script src='d3.js'></script>
+	<script src='d3.layout.cloud.js'></script>
+  </head>
+  <body>
+  	<div id='poll_data'>&nbsp;</div>
+	
+	<div id="chart_container">
+	        <div id="y_axis">&nbsp;</div>
+	        <div id="chart">&nbsp;</div>
+	        <div id="legend">&nbsp;</div>
+	        <form id="offset_form" class="toggler">
+	                <input type="radio" name="offset" id="lines" value="lines" checked>
+	                <label class="lines" for="lines">lines</label><br>
+	                <input type="radio" name="offset" id="stack" value="zero">
+	                <label class="stack" for="stack">stack</label>
+	        </form>
+	</div>
+
+	<script type='text/javascript'>
+		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
+
+		window.polls = {};
+		window.pollName = [];
+				
+		pollDataRef.on('child_added', function(snapshot) {
+			var data = snapshot.val();
+			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
+			if( window.polls[data.Poll] === undefined ) {
+				window.polls[data.Poll] = 0;
+				pollName.push(data.Poll);
+			} else {
+				window.polls[data.Poll] = window.polls[data.Poll] + 1;
+			}
+		});
+
+
+			d3.layout.cloud().size([300, 300])
+				.words(window.pollName.map(function(d) {
+						return {text: d, size: 10 + Math.random() * 90};
+					}))
+				.rotate(function() { return ~~(Math.random() * 2) * 90; })
+				.fontSize(function(d) { return d.size; })
+				.on("end", draw)
+				.start();
+			
+			function draw(words) {
+			    d3.select("body").append("svg")
+					.attr("width", 300)
+					.attr("height", 300)
+					.append("g")
+					.attr("transform", "translate(150,150)")
+					.selectAll("text")
+					.data(words)
+					.enter().append("text")
+					.style("font-size", function(d) { return d.size + "px"; })
+					.attr("text-anchor", "middle")
+					.attr("transform", function(d) {
+						return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+			        })
+			        .text(function(d) { return d.text; });
+			}
+	</script>
+  </body>
+</html>
+
