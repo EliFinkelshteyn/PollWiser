@@ -58,16 +58,6 @@
 	</div>
 			
 	<script type='text/javascript'>
-        var messages = [
-            "Changed home page welcome message",
-            "Minified JS and CSS",
-            "Changed button color from blue to green",
-            "Refactored SQL query to use indexed columns",
-            "Added additional logging for debugging",
-            "Fixed typo",
-            "Rewrite conditional logic for clarity",
-            "Added documentation for new methods"
-        ];
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
 		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data');
 	    window.series       = [];
@@ -121,11 +111,6 @@
 			        graph: window.graph
 			} );
 
-            //var slider = new Rickshaw.Graph.RangeSlider( {
-            //    graph: window.graph,
-            //    element: document.querySelector('#slider')
-            //} );
-
             var hoverDetail = new Rickshaw.Graph.HoverDetail( {
                 graph: window.graph
             } );
@@ -134,16 +119,6 @@
                 graph: window.graph,
                 element: document.querySelector('#timeline')
             } );
-
-            //var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
-            //    graph: window.graph,
-            //    legend: legend
-            //} );
-
-            //var order = new Rickshaw.Graph.Behavior.Series.Order( {
-            //    graph: window.graph,
-            //    legend: legend
-            //} );
 
             var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
                 graph: window.graph,
@@ -156,19 +131,14 @@
             } );
 
             var ticksTreatment = 'glow';
+            
+            window.graph.render();
 		}
 
 		function printChart() {
-			window.graph.render();
+			window.graph.update();
 		}
 
-        function addAnnotation(force) {
-            if (messages.length > 0 && (force || Math.random() >= 0.95)) {
-                annotator.add(window.series[2][window.series[2].length-1].x, messages.shift());
-            }
-        }
-
-        //addAnnotation(true);
 		setTimeout("updateSeries(); initChart(); printChart();", 2000);
 		setInterval("updateSeries(); printChart();", 5000);
 	</script>
