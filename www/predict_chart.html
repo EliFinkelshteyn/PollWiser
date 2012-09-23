@@ -13,41 +13,50 @@
 
 	<style>
 		#chart_container {
-		        display: inline-block;
-		        font-family: Arial, Helvetica, sans-serif;
+	        display: inline-block;
+	        font-family: Arial, Helvetica, sans-serif;
 		}
 		#chart {
-		        float: left;
+	        float: left;
 		}
 		#legend {
-		        float: left;
-		        margin-left: 15px;
+	        float: left;
+	        margin-left: 15px;
 		}
 		#offset_form {
-		        float: left;
-		        margin: 2em 0 0 15px;
-		        font-size: 13px;
+	        float: left;
+	        margin: 2em 0 0 15px;
+	        font-size: 13px;
 		}
 		#y_axis {
-		        float: left;
-		        width: 40px;
+	        float: left;
+	        width: 40px;
 		}
+		#poll_agency_cloud {
+	        float: left;
+	        margin: 2em 0 0 400px;
+	        width: 40px;
+		}
+		#cloud_frame {
+	        border-style: none;
+	        width: 400px;
+	        height: 400px;
+		}
+		
 	</style>
-	
+
 	<div id="chart_container">
 	        <div id="y_axis">&nbsp;</div>
 	        <div id="chart">&nbsp;</div>
 	        <div id="legend">&nbsp;</div>
-            <div id="timeline"></div>
-            <div id="slider"></div>
-	        <form id="offset_form" class="toggler">
-	                <input type="radio" name="offset" id="lines" value="lines" checked>
-	                <label class="lines" for="lines">lines</label><br>
-	                <input type="radio" name="offset" id="stack" value="zero">
-	                <label class="stack" for="stack">stack</label>
-	        </form>
+            <div id="timeline">&nbsp;</div>
+            <div id="slider">&nbsp;</div>
 	</div>
-
+	<div id='poll_agency_cloud'>
+		<iframe id='cloud_frame' src="file://localhost/Users/andreytabachnik/Documents/Me/ios_samples/PredictPolls/www/poll_cloud.html">
+		</iframe>
+	</div>
+			
 	<script type='text/javascript'>
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
 		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data');
@@ -137,29 +146,12 @@
             } );
 
             var ticksTreatment = 'glow';
-
-			var offsetForm = document.getElementById('offset_form');
-
-			offsetForm.addEventListener('change', function(e) {
-			        var offsetMode = e.target.value;
-			
-			        if (offsetMode == 'lines') {
-			                graph.setRenderer('line');
-			                graph.offset = 'zero';
-			        } else {
-			                graph.setRenderer('stack');
-			                graph.offset = offsetMode;
-			        }       
-			        graph.render();
-			
-			}, false);
 		}
 
 		function printChart() {
-			//$("#chart").html('');
-			
 			window.graph.render();
 		}
+
         function addAnnotation(force) {
             if (messages.length > 0 && (force || Math.random() >= 0.95)) {
                 annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());
