@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Pollwiser</title>
+    <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+	<script src='vendor/d3.min.js'></script>
+	<script src='vendor/d3.layout.min.js'></script>
+	<script src='rickshaw.min.js'></script>
+  </head>
+  <body>
+  	<div id='poll_data'>&nbsp;</div>
+  	<div id="chart">&nbsp;</div>
+	<script type='text/javascript'>
+		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/poll_data');
+		
+		window.chartData = [];
+		var i = 0;
+		pollDataRef.on('child_added', function(snapshot) {
+			var data = snapshot.val();
+			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
+
+			window.chartData.push({x:i, y:parseFloat(data.Dem)});
+			++i;
+			if (i==100) {
+				initChart();
+			}
+		});
+		
+		setInterval(function() { printChart() },3000);
+				
+		function initChart() {
+			window.graph = new Rickshaw.Graph( {
+		        element: document.querySelector("#chart"),
+		        width: 4000,
+		        height: 250,
+		        series: [ {
+		                color: 'steelblue',
+		                data: window.chartData
+		        } ]
+			} );
+		}
+
+		function printChart() {
+			//$("#chart").html('');
+			window.graph.render();
+		}
+	</script>
+  </body>
+</html>
+
