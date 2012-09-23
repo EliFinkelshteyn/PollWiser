@@ -50,7 +50,6 @@
 	        <div id="chart">&nbsp;</div>
 	        <div id="legend">&nbsp;</div>
             <div id="timeline">&nbsp;</div>
-            <div id="slider">&nbsp;</div>
             <div id="smoother">&nbsp;</div>
 	</div>
 	<div id='poll_agency_cloud'>
@@ -65,6 +64,7 @@
 		window.chartDataDem = [];
 		window.chartDataGOP = [];
 		window.chartDates   = {};
+        window.chartTweets  = {};
 		window.polls        = {};
 				
 		pollDataRef.on('child_added', function(snapshot) {
@@ -81,6 +81,14 @@
 				window.chartDates[data.Date] = data.Date;
 			}
 		});
+
+        twitDataRef.on('child_added', function(snapshot) {
+            var data = snapshot.val();
+
+            if( window.chartTweets[data.Date] === undefined ) {
+                window.chartTweets[data.date] = data;
+            }
+        });
 		
 		function updateSeries() {
 			window.chartDataDem.sort(function(a,b){return a.x - b.x});
@@ -118,8 +126,21 @@
                     var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
                     var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
                     var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
-                    var final_content = content + '<br>' + '@FrankConniff: Pat Buchanan calls Obama "a drug dealer of welfare." I guess that would make Pat a crystal meth lab of racism."';
-                    return final_content;
+
+                    if (x === undefined) {
+                        content +=  '<br>' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
+                        return content;
+                    }
+                    if (window.chartTweets[x] === undefined){
+                        content +=  '<br>' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
+                        return content;
+                    }
+                    if (window.chartTweets[x]['obama_popular_tweets'] === undefined) {
+                        content +=  '<br>' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
+                        return content;
+                    }
+                    content +=  '<br>' + window.chartTweets[x]['obama_popular_tweets'][0];
+                    return content;
                 }
             } );
 
