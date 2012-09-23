@@ -53,11 +53,21 @@
             <div id="slider">&nbsp;</div>
 	</div>
 	<div id='poll_agency_cloud'>
-		<iframe id='cloud_frame' src="file://localhost/Users/andreytabachnik/Documents/Me/ios_samples/PredictPolls/www/poll_cloud.html">
+		<iframe id='cloud_frame' src="poll_cloud.html">
 		</iframe>
 	</div>
 			
 	<script type='text/javascript'>
+        var messages = [
+            "Changed home page welcome message",
+            "Minified JS and CSS",
+            "Changed button color from blue to green",
+            "Refactored SQL query to use indexed columns",
+            "Added additional logging for debugging",
+            "Fixed typo",
+            "Rewrite conditional logic for clarity",
+            "Added documentation for new methods"
+        ];
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
 		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data');
 	    window.series       = [];
@@ -154,7 +164,7 @@
 
         function addAnnotation(force) {
             if (messages.length > 0 && (force || Math.random() >= 0.95)) {
-                annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());
+                annotator.add(window.series[2][window.series[2].length-1].x, messages.shift());
             }
         }
 
