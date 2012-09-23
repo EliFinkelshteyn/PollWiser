@@ -49,12 +49,8 @@
 	        <div id="y_axis">&nbsp;</div>
 	        <div id="chart">&nbsp;</div>
 	        <div id="legend">&nbsp;</div>
-	        <form id="offset_form" class="toggler">
-	                <input type="radio" name="offset" id="lines" value="lines" checked>
-	                <label class="lines" for="lines">lines</label><br>
-	                <input type="radio" name="offset" id="stack" value="zero">
-	                <label class="stack" for="stack">stack</label>
-	        </form>
+            <div id="timeline">&nbsp;</div>
+            <div id="slider">&nbsp;</div>
 	</div>
 	<div id='poll_agency_cloud'>
 		<iframe id='cloud_frame' src="file://localhost/Users/andreytabachnik/Documents/Me/ios_samples/PredictPolls/www/poll_cloud.html">
@@ -63,7 +59,7 @@
 			
 	<script type='text/javascript'>
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
-		
+		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data');
 	    window.series       = [];
 		window.chartDataDem = [];
 		window.chartDataGOP = [];
@@ -114,27 +110,55 @@
 			        element: document.querySelector('#legend'),
 			        graph: window.graph
 			} );
-			
-			var offsetForm = document.getElementById('offset_form');
 
-			offsetForm.addEventListener('change', function(e) {
-			        var offsetMode = e.target.value;
-			
-			        if (offsetMode == 'lines') {
-			                window.graph.setRenderer('line');
-			                window.graph.offset = 'zero';
-			        } else {
-			                window.graph.setRenderer('stack');
-			                window.graph.offset = offsetMode;
-			        }       
-			        window.graph.render();
-			}, false);
+            //var slider = new Rickshaw.Graph.RangeSlider( {
+            //    graph: window.graph,
+            //    element: document.querySelector('#slider')
+            //} );
+
+            var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+                graph: window.graph
+            } );
+
+            var annotator = new Rickshaw.Graph.Annotate( {
+                graph: window.graph,
+                element: document.querySelector('#timeline')
+            } );
+
+            var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
+                graph: window.graph,
+                legend: legend
+            } );
+
+            var order = new Rickshaw.Graph.Behavior.Series.Order( {
+                graph: window.graph,
+                legend: legend
+            } );
+
+            var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
+                graph: window.graph,
+                legend: legend
+            } );
+
+            var smoother = new Rickshaw.Graph.Smoother( {
+                graph: window.graph,
+                element: document.querySelector('#smoother')
+            } );
+
+            var ticksTreatment = 'glow';
 		}
 
 		function printChart() {
 			window.graph.render();
 		}
 
+        function addAnnotation(force) {
+            if (messages.length > 0 && (force || Math.random() >= 0.95)) {
+                annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());
+            }
+        }
+
+        //addAnnotation(true);
 		setTimeout("updateSeries(); initChart(); printChart();", 2000);
 		setInterval("updateSeries(); printChart();", 5000);
 	</script>
