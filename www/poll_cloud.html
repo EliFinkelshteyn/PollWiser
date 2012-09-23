@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Pollwiser</title>
+    <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
+	<script src='d3.js'></script>
+	<script src='d3.layout.cloud.js'></script>
+  </head>
+  <body>
+	<script type='text/javascript'>
+		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
+
+		window.polls = {};
+		window.pollName = [];
+				
+		pollDataRef.on('child_added', function(snapshot) {
+			var data = snapshot.val();
+			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
+			if( window.polls[data.Poll] === undefined ) {
+				window.polls[data.Poll] = 0;
+				window.pollName.push(data.Poll);
+			} else {
+				window.polls[data.Poll] = window.polls[data.Poll] + 1;
+			}
+		});
+
+		function initCloud() {
+			d3.layout.cloud().size([300, 300])
+				.words(window.pollName.map(function(text) {
+						var size = window.polls[text];
+						return {text: text, size: 10 + size};
+					}))
+				.rotate(function() { return ~~(Math.random() * 2) * 90; })
+				.fontSize(function(d) { return d.size; })
+				.on("end", draw)
+				.start();
+		}
+		
+		function draw(words) {
+		    d3.select("body").append("svg")
+				.attr("width", 300)
+				.attr("height", 300)
+				.append("g")
+				.attr("transform", "translate(150,150)")
+				.selectAll("text")
+				.data(words)
+				.enter().append("text")
+				.style("font-size", function(d) { return d.size + "px"; })
+				.attr("text-anchor", "middle")
+				.attr("transform", function(d) {
+					return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+		        })
+		        .text(function(d) { return d.text; });
+		}
+		
+		setTimeout("initCloud();", 2000);
+	</script>
+  </body>
+</html>
+

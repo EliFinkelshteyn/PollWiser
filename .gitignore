@@ -2,3 +2,4 @@
 .idea
 *.pyc
 *.shelve
+src
