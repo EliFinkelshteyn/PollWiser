@@ -51,6 +51,7 @@
 	        <div id="legend">&nbsp;</div>
             <div id="timeline">&nbsp;</div>
             <div id="slider">&nbsp;</div>
+            <div id="smoother">&nbsp;</div>
 	</div>
 	<div id='poll_agency_cloud'>
 		<iframe id='cloud_frame' src="poll_cloud.html">
@@ -112,7 +113,13 @@
 			} );
 
             var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-                graph: window.graph
+                graph: window.graph,
+                formatter: function(series, x, y) {
+                    var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
+                    var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
+                    var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
+                    return content;
+                }
             } );
 
             var annotator = new Rickshaw.Graph.Annotate( {
