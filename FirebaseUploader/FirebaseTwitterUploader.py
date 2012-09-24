@@ -11,7 +11,7 @@ def getTwitterDate(date):
     return date.strftime('%s')
 
 f = Firebase('http://demo.firebase.com/seifeet/twitter_data')
-for item in json.load(open('../Data/obama.json')):
+for item in json.load(open('../Data/romney.json')):
     if isinstance(item,dict):
         item['date'] = getTwitterDate(item['created_at'])
         print 'about to push!'
