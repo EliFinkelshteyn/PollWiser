@@ -90,6 +90,12 @@ body {
     float: left;
     margin-left: 15px;
 }
+#context_box {
+    width: 300px;
+    height: 400px;
+    background-color: #444444;
+    float: left;
+}
 #slider {
     float: left;
 }
