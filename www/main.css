@@ -90,6 +90,9 @@ body {
     float: left;
     margin-left: 15px;
 }
+#slider {
+    float: left;
+}
 #offset_form {
     float: left;
     margin: 2em 0 0 15px;
