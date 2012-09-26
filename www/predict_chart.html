@@ -142,8 +142,11 @@
 			window.graph = new Rickshaw.Graph( {
 		        element: document.querySelector("#chart"),
 		        renderer: 'line',
+                interpolation:'basis',
 		        width: 600,
-		        height: 500,
+		        height: 400,
+                min: 35,
+                max: 57,
 		        series: window.series
 			} );
             var slider = new Rickshaw.Graph.RangeSlider( {
@@ -156,7 +159,7 @@
 				element: document.querySelector("#y_axis"),
 				graph: window.graph,
 				orientation: 'left',
-				tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+                tickFormat: Rickshaw.Fixtures.Number.formatKMBT
 			} );
 			
 			var legend = new Rickshaw.Graph.Legend( {
@@ -197,7 +200,7 @@
 
             var annotator = new Rickshaw.Graph.Annotate( {
                 graph: window.graph,
-                element: document.querySelector('#timeline')
+                element: document.getElementById('timeline')
             } );
 
             var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
