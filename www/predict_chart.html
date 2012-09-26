@@ -2,13 +2,46 @@
   <head>
     <title>Pollwiser</title>
     <link type="text/css" rel="stylesheet" href="rickshaw.min.css" />
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="src/css/graph.css">
+    <link type="text/css" rel="stylesheet" href="src/css/detail.css">
+    <link type="text/css" rel="stylesheet" href="src/css/legend.css">
     <link rel="stylesheet" type="text/css" href="main.css" />
     
     <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 	<script src='vendor/d3.min.js'></script>
 	<script src='vendor/d3.layout.min.js'></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+
 	<script src='rickshaw.min.js'></script>
+    <script src="src/js/Rickshaw.js"></script>
+    <script src="src/js/Rickshaw.Class.js"></script>
+    <script src="src/js/Rickshaw.Compat.ClassList.js"></script>
+    <script src="src/js/Rickshaw.Graph.js"></script>
+    <script src="src/js/Rickshaw.Graph.Renderer.js"></script>
+    <script src="src/js/Rickshaw.Graph.Renderer.Area.js"></script>
+    <script src="src/js/Rickshaw.Graph.Renderer.Line.js"></script>
+    <script src="src/js/Rickshaw.Graph.Renderer.Bar.js"></script>
+    <script src="src/js/Rickshaw.Graph.Renderer.ScatterPlot.js"></script>
+    <script src="src/js/Rickshaw.Graph.RangeSlider.js"></script>
+    <script src="src/js/Rickshaw.Graph.HoverDetail.js"></script>
+    <script src="src/js/Rickshaw.Graph.Annotate.js"></script>
+    <script src="src/js/Rickshaw.Graph.Legend.js"></script>
+    <script src="src/js/Rickshaw.Graph.Axis.Time.js"></script>
+    <script src="src/js/Rickshaw.Graph.Behavior.Series.Toggle.js"></script>
+    <script src="src/js/Rickshaw.Graph.Behavior.Series.Order.js"></script>
+    <script src="src/js/Rickshaw.Graph.Behavior.Series.Highlight.js"></script>
+    <script src="src/js/Rickshaw.Graph.Smoother.js"></script>
+    <script src="src/js/Rickshaw.Graph.Unstacker.js"></script>
+    <script src="src/js/Rickshaw.Fixtures.Time.js"></script>
+    <script src="src/js/Rickshaw.Fixtures.Number.js"></script>
+    <script src="src/js/Rickshaw.Fixtures.RandomData.js"></script>
+    <script src="src/js/Rickshaw.Fixtures.Color.js"></script>
+    <script src="src/js/Rickshaw.Color.Palette.js"></script>
+    <script src="src/js/Rickshaw.Graph.Axis.Y.js"></script>
   </head>
  <body>
 
@@ -25,13 +58,15 @@
 		 <div id="content">
 		       
 		  	<div id='poll_data'>&nbsp;</div>
-		
-			<div id="chart_container">
-			        <div id="y_axis">&nbsp;</div>
-			        <div id="chart">&nbsp;</div>
-			        <div id="legend">&nbsp;</div>
-		            <div id="timeline">&nbsp;</div>
-			</div>
+
+             <div id="chart_container">
+                 <div id="y_axis"></div>
+                 <div id="chart"></div>
+                 <div id="legend"></div>
+                 <div id="timeline"></div>
+                 <div id="slider"></div>
+
+             </div>
 		 </div>
 		 <!-- End Content -->
 		 <div id='sub_content'>
@@ -103,7 +138,11 @@
 		        height: 500,
 		        series: window.series
 			} );
-			
+            var slider = new Rickshaw.Graph.RangeSlider( {
+                graph: window.graph,
+                element: $('#slider')
+            } );
+
 			var axes = new Rickshaw.Graph.Axis.Time( { graph: window.graph } );
 			var y_ticks = new Rickshaw.Graph.Axis.Y( {
 				element: document.querySelector("#y_axis"),
@@ -136,8 +175,12 @@
                         content +=  '<br>' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
                         return content;
                     }
-                    content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user'] + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
-                    content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][1]['from_user'] + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][1]['text'];
+                    content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
+                            + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
+                    if (window.chartTweets[x]['obama_popular_tweets'].length > 1) {
+                        content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][1]['from_user']
+                                + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][1]['text'];
+                    }
                     content +=  '<br><br>' + 'Obama mentions retweeted: ' + window.chartTweets[x]['obama_count'];
                     content +=  '<br>' + 'Romney mentions retweeted: ' + window.chartTweets[x]['romney_count'];
                     return content;
