@@ -175,8 +175,12 @@
                         content +=  '<br>' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
                         return content;
                     }
-                    content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user'] + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
-                    content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][1]['from_user'] + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][1]['text'];
+                    content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
+                            + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
+                    if (window.chartTweets[x]['obama_popular_tweets'].length > 1) {
+                        content +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][1]['from_user']
+                                + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][1]['text'];
+                    }
                     content +=  '<br><br>' + 'Obama mentions retweeted: ' + window.chartTweets[x]['obama_count'];
                     content +=  '<br>' + 'Romney mentions retweeted: ' + window.chartTweets[x]['romney_count'];
                     return content;
