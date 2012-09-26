@@ -47,8 +47,8 @@ Rickshaw.Graph.Renderer = Rickshaw.Class.create( {
 		xMin -= (xMax - xMin) * this.padding.left;
 		xMax += (xMax - xMin) * this.padding.right;
 
-		var yMin = this.graph.min === 'auto' ? d3.min( values ) : this.graph.min || 0;
-		var yMax = this.graph.max || d3.max( values );
+		var yMin = this.graph.min === 'auto' ? d3.min( values ) -5 : this.graph.min || 0;
+		var yMax = this.graph.max === 'auto' ? d3.max( values ) +5 : d3.max( values );
 
 		if (this.graph.min === 'auto' || yMin < 0) {
 			yMin -= (yMax - yMin) * this.padding.bottom;
