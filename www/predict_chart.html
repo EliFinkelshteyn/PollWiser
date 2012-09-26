@@ -122,12 +122,20 @@
             }
         });
 		
+        function pollSort(a,b) {return a.x - b.x;}
+        
 		function updateSeries() {
-			window.chartDataDem.sort(function(a,b){return a.x - b.x});
-			series.push({ name: 'Obama', color: 'steelblue', data: window.chartDataDem });
-			
-			window.chartDataGOP.sort(function(a,b){return a.x - b.x});
-			series.push({ name: 'Romney', color: 'red', data: window.chartDataGOP });
+            if (window.series.length === 2) {
+                window.series[0]['data'].sort(pollSort);
+                window.series[1]['data'].sort(pollSort);
+            }
+            else {
+                window.chartDataDem.sort(pollSort);
+                window.chartDataGOP.sort(pollSort);
+                window.series = []
+                window.series.push({ name: 'Obama', color: 'steelblue', data: window.chartDataDem });
+                window.series.push({ name: 'Romney', color: 'red', data: window.chartDataGOP });
+            }
 		}
 
 		function initChart() {
@@ -206,8 +214,19 @@
 			window.graph.update();
 		}
 
-		setTimeout("updateSeries(); initChart(); printChart();", 2000);
-		setInterval("updateSeries(); printChart();", 5000);
+        function main(){
+            updateSeries();
+            if (window.graph === undefined && window.series.length === 2 && 
+                window.series[0]['data'].length > 0 && window.series[1]['data'].length >0) {
+                
+                initChart();
+            }
+                
+            if (window.graph !== undefined)
+                printChart();
+        }
+        
+		setInterval("main();", 1000);
 	</script>
 
 </body>
