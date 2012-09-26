@@ -24,7 +24,7 @@
 		});
 
 		function initCloud() {
-			d3.layout.cloud().size([300, 300])
+			d3.layout.cloud().size([880, 180])
 				.words(window.pollName.map(function(text) {
 						var size = window.polls[text];
 						return {text: text, size: 10 + size};
@@ -37,10 +37,10 @@
 		
 		function draw(words) {
 		    d3.select("body").append("svg")
-				.attr("width", 300)
-				.attr("height", 300)
+				.attr("width", 880)
+				.attr("height", 180)
 				.append("g")
-				.attr("transform", "translate(150,150)")
+				.attr("transform", "translate(440,90)")
 				.selectAll("text")
 				.data(words)
 				.enter().append("text")

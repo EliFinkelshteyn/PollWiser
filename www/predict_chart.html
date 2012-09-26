@@ -1,63 +1,60 @@
 <html>
   <head>
     <title>Pollwiser</title>
-    <link type="text/css" rel="stylesheet" href="rickshaw.min.css">
+    <link type="text/css" rel="stylesheet" href="rickshaw.min.css" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    
     <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 	<script src='vendor/d3.min.js'></script>
 	<script src='vendor/d3.layout.min.js'></script>
 	<script src='rickshaw.min.js'></script>
   </head>
-  <body>
-  	<div id='poll_data'>&nbsp;</div>
+ <body>
 
-	<style>
-		#chart_container {
-	        display: inline-block;
-	        font-family: Arial, Helvetica, sans-serif;
-            float: left;
-		}
-		#chart {
-	        float: left;
-		}
-		#legend {
-	        float: left;
-	        margin-left: 15px;
-		}
-		#offset_form {
-	        float: left;
-	        margin: 2em 0 0 15px;
-	        font-size: 13px;
-		}
-		#y_axis {
-	        float: left;
-	        width: 40px;
-		}
-		#poll_agency_cloud {
-	        float: left;
-	        margin: 2em 0 0 40px;
-	        width: 40px;
-		}
-		#cloud_frame {
-	        border-style: none;
-	        width: 400px;
-	        height: 400px;
-		}
+   <!-- Begin Wrapper -->
+   <div id="wrapper">
+   
+         <!-- Begin Header -->
+         <div id="header">
+         	<h1>Pollwiser</h1> 
+		 </div>
+		 <!-- End Header -->
+		 
+		 <!-- Begin Content -->
+		 <div id="content">
+		       
+		  	<div id='poll_data'>&nbsp;</div>
 		
-	</style>
-
-	<div id="chart_container">
-	        <div id="y_axis">&nbsp;</div>
-	        <div id="chart">&nbsp;</div>
-	        <div id="legend">&nbsp;</div>
-            <div id="timeline">&nbsp;</div>
-	</div>
-	<div id='poll_agency_cloud'>
-		<iframe id='cloud_frame' src="poll_cloud.html">
-		</iframe>
-	</div>
-			
-	<script type='text/javascript'>
+			<div id="chart_container">
+			        <div id="y_axis">&nbsp;</div>
+			        <div id="chart">&nbsp;</div>
+			        <div id="legend">&nbsp;</div>
+		            <div id="timeline">&nbsp;</div>
+			</div>
+		 </div>
+		 <!-- End Content -->
+		 <div id='sub_content'>
+			<div id='poll_agency_cloud'>
+				<iframe id='cloud_frame' src="poll_cloud.html">
+				</iframe>
+			</div> 
+		 </div>
+		 
+		 <!-- Begin Footer -->
+		 <div id="footer">
+			<ul id="navlist">
+				<li><a href="#" id="current">Home</a></li>
+				<li><a href="#">Contact</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">News</a></li>
+			</ul> 
+	     </div>
+		 <!-- End Footer -->
+   </div>
+   <!-- End Wrapper -->
+   
+ 	<script type='text/javascript'>
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
 		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data_2');
 	    window.series       = [];
@@ -169,7 +166,7 @@
 		setTimeout("updateSeries(); initChart(); printChart();", 2000);
 		setInterval("updateSeries(); printChart();", 5000);
 	</script>
-	
-  </body>
+
+</body>
 </html>
 

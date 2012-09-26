@@ -1,0 +1,108 @@
+/*
+      Created by Keith Donegan of Code-Sucks.com
+	  http://www.code-sucks.com
+*/
+
+* { padding: 0; margin: 0; }
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+#wrapper { 
+	margin: 0 auto;
+	width: 922px;
+}
+#header {
+	width: 900px;
+	color: #333;
+	padding: 10px;
+	border: 1px solid #ccc;
+	height: 50px;
+	margin: 10px 0px 0px 0px;
+	background: #BD9C8C;
+	text-align: center;
+	line-height: 50px;
+}
+#content { 
+	width: 900px;
+	color: #333;
+	border: 1px solid #ccc;
+	background: #F2F2E6;
+	margin: 0px 0px 0px 0px;
+	padding: 10px;
+	height: 550px;
+}
+#sub_content { 
+	width: 900px;
+	color: #333;
+	border: 1px solid #ccc;
+	background: #F2F2E6;
+	margin: 0px 0px 0px 0px;
+	padding: 10px;
+	height: 220px;
+}
+#footer { 
+	width: 900px;
+	color: #333;
+	border: 1px solid #ccc;
+	background: #BD9C8C;
+	margin: 0px 0px 10px 0px;
+	padding: 10px;
+	text-align: center;
+}
+
+
+#navlist ul {
+	list-style-type: none;
+	width: 100px;
+} 
+
+#navlist li {
+    border: 1px dotted #999;
+    border-width: 1px 0;
+    margin: 5px 0;
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+
+#navlist li a { 
+    color: #990000;
+    font: bold 120% Arial, Helvetica, sans-serif;
+    padding: 5px;
+    text-decoration: none;
+}
+
+#navlist li a:hover {
+    background: #ffffcc;
+}
+
+#chart_container {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    float: left;
+}
+#chart {
+    float: left;
+}
+#legend {
+    float: left;
+    margin-left: 15px;
+}
+#offset_form {
+    float: left;
+    margin: 2em 0 0 15px;
+    font-size: 13px;
+}
+#y_axis {
+    float: left;
+    width: 40px;
+}
+#poll_agency_cloud {
+}
+#cloud_frame {
+    border-style: none;
+    width: 900px;
+    height: 200px;
+}
