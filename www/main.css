@@ -122,6 +122,14 @@ ul.navlist {
     float: left;
     margin-left: 15px;
 }
+
+#context_box {
+    width: 100px;
+    height: 50px;
+    background-color: #444444;
+    float: left;
+}
+
 #slider {
     float: left;
 }

@@ -7,23 +7,26 @@
   </head>
   <body>
 	<script type='text/javascript'>
-		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
-
-		window.polls = {};
-		window.pollName = [];
-				
-		pollDataRef.on('child_added', function(snapshot) {
-			var data = snapshot.val();
-			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
-			if( window.polls[data.Poll] === undefined ) {
-				window.polls[data.Poll] = 0;
-				window.pollName.push(data.Poll);
-			} else {
-				window.polls[data.Poll] = window.polls[data.Poll] + 1;
-			}
-		});
+		function initFirebase() {
+			var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
+	
+			window.polls = {};
+			window.pollName = [];
+			pollDataRef.on('child_added', function(snapshot) {
+				var data = snapshot.val();
+				if( window.polls[data.Poll] === undefined ) {
+					window.polls[data.Poll] = 0;
+					window.pollName.push(data.Poll);
+				} else {
+					window.polls[data.Poll] = window.polls[data.Poll] + 1;
+				}
+			});
+		}
 
 		function initCloud() {
+			d3.select("svg").remove();
+			d3.select("body").append("svg");
+
 			d3.layout.cloud().size([880, 180])
 				.words(window.pollName.map(function(text) {
 						var size = window.polls[text];
@@ -36,7 +39,7 @@
 		}
 		
 		function draw(words) {
-		    d3.select("body").append("svg")
+		    d3.select("svg")
 				.attr("width", 880)
 				.attr("height", 180)
 				.append("g")
@@ -52,7 +55,9 @@
 		        .text(function(d) { return d.text; });
 		}
 		
+		setTimeout("initFirebase();", 100);
 		setTimeout("initCloud();", 3000);
+		setInterval("initCloud();", 10000);
 	</script>
   </body>
 </html>
