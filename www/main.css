@@ -57,11 +57,14 @@ body {
 	padding: 10px 0px 10px 0px;
 	clear: both;
 	height: 150px;
+    text-align: center;
 }
-#footerhack {
-	margin: 0px 30% 10px 30%;
+div.footer-section {
+    text-align: left;
+    width: 100px;
+    display: inline-block;
 }
-#navlist {
+ul.navlist {
 	display: block;
 	list-style: none;
 	list-style-image: none;
@@ -72,24 +75,19 @@ body {
 	text-align: left;
 	width: 100px;
 } 
-#navlist ul {
-	font-weight: bold;
-	color: white;
-}
-
-#navlist ul li {
+.navlist li {
     border-width: 1px 0;
     margin: 5px 0;
 	padding-right: 20px;
 }
 
-#navlist li a { 
+.navlist li a { 
     color: #990000;
     font: bold 120%;
     text-decoration: none;
 }
 
-#navlist li a:hover {
+.navlist li a:hover {
     background: #ffffcc;
 }
 
