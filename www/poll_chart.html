@@ -124,11 +124,17 @@ function displayContext(x) {
         }
     }
     
-    if (obama_tweet.length > 0 || romney_tweet.length > 0) {
-        content += '<span class="info_text">'+dateStr+'</span>' +
-            '<span class="romney_tweet">'+romney_tweet+'</span>' +
-            '<span class="obama_tweet">'+obama_tweet+'</span>';
-    } else {
+    content += '<span class="info_text">'+dateStr+'</span>';
+    
+    if (obama_tweet.length > 0) {
+		content += '<span class="obama_tweet">'+obama_tweet+'</span>';
+    }
+    
+	if (romney_tweet.length > 0) {
+		content += '<span class="romney_tweet">'+romney_tweet+'</span>';
+    }
+ 
+    if (obama_tweet.length == 0 && romney_tweet.length == 0) {
 		content +=  '<br />' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
     }
     
