@@ -33,10 +33,11 @@ body {
 .obama_tweet {
     width: 38%;
     float: left;
+    text-align: left;
     font-weight: bold;
     color: white;
     padding: 5px;
-    background-color: #4d7fcf;
+    background-color: #708ca7;
 }
 .info_text {
     color: gray;
@@ -51,7 +52,7 @@ body {
     font-weight: bold;
     color: white;
     padding: 5px;
-    background-color: #ED4337;
+    background-color: #de5252;
 }
 #sub_content { 
     width: 100%;
