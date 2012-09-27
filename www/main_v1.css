@@ -26,41 +26,57 @@ body {
 #content { 
     width: 100%;
     color: #333;
-    border: 1px solid #ccc;
     background: #F2F2E6;
-    margin: 0px 0px 0px 0px;
-    padding: 10px 0px 10px 0px;
     height: 400px;
 }
+#container {
+	width: 70%;
+	min-width: 400px; 
+	height: 400px; 
+	margin: 0 auto;
+	float: left;
+}
 #context_box {
-    width: 100%;
-    height: 100px;
+    width: 30%;
     background-color: #F2F2E6;
     float: left;
-    clear: both;
-}
-.obama_tweet {
-    width: 38%;
-    float: left;
-    font-weight: bold;
-    color: white;
-    padding: 5px;
-    background-color: #4d7fcf;
 }
 .info_text {
     color: gray;
-    width: 20%;
     float: left;
-    text-align: center;
+    height: 20px;
+    padding: 5px;
+    margin: 5px;
 }
-.romney_tweet {
-    width: 38%;
+.obama_tweet {
     float: left;
-    text-align: right;
     font-weight: bold;
     color: white;
     padding: 5px;
+    margin: 5px;
+    background-color: #4d7fcf;
+}
+.romney_tweet {
+    float: left;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+    margin: 5px;
     background-color: #ED4337;
+}
+#o_bar {
+	float: left;
+	width: ; /* set as percentage of day's retweets */
+	margin: 2px;
+    background-color: #4d7fcf;
+    color: white;
+}
+#r_bar {
+	float: left;
+	width: ; /* set as percentage of day's retweets */
+	margin: 2px;
+    background-color: #ED4337;
+    color: white;
 }
 #sub_content { 
     width: 100%;

@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Highcharts Example</title>
 
-		<link type="text/css"rel="stylesheet" href="main.css" />
+		<link type="text/css"rel="stylesheet" href="main_v1.css" />
     
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
@@ -124,9 +124,9 @@ function displayContext(x) {
                       + ': <br />' + window.chartTweets[x]['romney_popular_tweets'][0]['text'];
         }
         
-        content += '<span class="obama_tweet">'+obama_tweet+'</span>' +
-            '<span class="info_text">'+dateStr+'</span>' +
-            '<span class="romney_tweet">'+romney_tweet+'</span>';
+        content += '<span class="info_text">'+dateStr+'</span>' +
+            '<span class="romney_tweet">'+romney_tweet+'</span>' +
+            '<span class="obama_tweet">'+obama_tweet+'</span>';
     }
     
     //Add this in once proper css exists for a content box
@@ -187,10 +187,9 @@ $(function () {
          
          <!-- Begin Content -->
          <div id="content">    
-			<script src="vendor/Highcharts-2.3.2/js/highcharts.js"></script>
-			<script src="vendor/Highcharts-2.3.2/js/modules/exporting.js"></script>
-	
-			<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+			<div id="container">
+				<script src="vendor/Highcharts-2.3.2/js/highcharts.js"></script>
+				<script src="vendor/Highcharts-2.3.2/js/modules/exporting.js"></script>
 			</div>
 			<div id="context_box">
 			</div>
