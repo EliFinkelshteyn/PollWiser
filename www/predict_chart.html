@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Pollwiser</title>
-	<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic'>
+    <link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic'>
     <link type="text/css" rel="stylesheet" href="rickshaw.min.css" />
     <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="src/css/graph.css">
@@ -11,13 +11,13 @@
     
     <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-	<script src='vendor/d3.min.js'></script>
-	<script src='vendor/d3.layout.min.js'></script>
+    <script src='vendor/d3.min.js'></script>
+    <script src='vendor/d3.layout.min.js'></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
 
-	<script src='rickshaw.min.js'></script>
+    <script src='rickshaw.min.js'></script>
     <script src="src/js/Rickshaw.js"></script>
     <script src="src/js/Rickshaw.Class.js"></script>
     <script src="src/js/Rickshaw.Compat.ClassList.js"></script>
@@ -51,14 +51,14 @@
    
          <!-- Begin Header -->
          <div id="header">
-         	<img src="header.png" alt="Pollwiser" width="100%" />
-		 </div>
-		 <!-- End Header -->
-		 
-		 <!-- Begin Content -->
-		 <div id="content">
-		       
-		  	<div id='poll_data'>&nbsp;</div>
+             <img src="header.png" alt="Pollwiser" width="100%" />
+         </div>
+         <!-- End Header -->
+         
+         <!-- Begin Content -->
+         <div id="content">
+               
+              <div id='poll_data'>&nbsp;</div>
 
              <div id="chart_container">
                  <div id="y_axis"></div>
@@ -68,17 +68,17 @@
                  <div id="slider"></div>
                  <div id="context_box"></div>
              </div>
-		 </div>
-		 <!-- End Content -->
-		 <div id='sub_content'>
-			<div id='poll_agency_cloud'>
-				<iframe id='cloud_frame' src="poll_cloud.html">
-				</iframe>
-			</div> 
-		 </div>
-		 
-		 <!-- Begin Footer -->
-		 <div id="footer">
+         </div>
+         <!-- End Content -->
+         <div id='sub_content'>
+            <div id='poll_agency_cloud'>
+                <iframe id='cloud_frame' src="poll_cloud.html">
+                </iframe>
+            </div> 
+         </div>
+         
+         <!-- Begin Footer -->
+         <div id="footer">
             <div class="footer-section">
                 <b>Data sources</b>
                 <ul class="navlist">
@@ -107,35 +107,35 @@
                     <li><a href="">Angelhack</a></li>                    
                 </ul> 
             </div>
-	     </div>
-		 <!-- End Footer -->
+         </div>
+         <!-- End Footer -->
    </div>
    <!-- End Wrapper -->
    
- 	<script type='text/javascript'>
-		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
-		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data_2');
-	    window.series       = [];
-		window.chartDataDem = [];
-		window.chartDataGOP = [];
-		window.chartDates   = {};
+     <script type='text/javascript'>
+        var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
+        var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data_2');
+        window.series       = [];
+        window.chartDataDem = [];
+        window.chartDataGOP = [];
+        window.chartDates   = {};
         window.chartTweets  = {};
-		window.polls        = {};
-				
-		pollDataRef.on('child_added', function(snapshot) {
-			var data = snapshot.val();
-			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
-			if( window.polls[data.Poll] === undefined ) {
-				window.polls[data.Poll] = 0;
-			} else {
-				window.polls[data.Poll] = window.polls[data.Poll] + 1;
-			}
-			if( window.chartDates[data.Date] === undefined ) {
-				window.chartDataDem.push({x:parseInt(data.Date), y:parseFloat(data.Obama)});
-				window.chartDataGOP.push({x:parseInt(data.Date), y:parseFloat(data.Romney)});
-				window.chartDates[data.Date] = data.Date;
-			}
-		});
+        window.polls        = {};
+                
+        pollDataRef.on('child_added', function(snapshot) {
+            var data = snapshot.val();
+            //$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
+            if( window.polls[data.Poll] === undefined ) {
+                window.polls[data.Poll] = 0;
+            } else {
+                window.polls[data.Poll] = window.polls[data.Poll] + 1;
+            }
+            if( window.chartDates[data.Date] === undefined ) {
+                window.chartDataDem.push({x:parseInt(data.Date), y:parseFloat(data.Obama)});
+                window.chartDataGOP.push({x:parseInt(data.Date), y:parseFloat(data.Romney)});
+                window.chartDates[data.Date] = data.Date;
+            }
+        });
 
         twitDataRef.on('child_added', function(snapshot) {
             var data = snapshot.val();
@@ -144,10 +144,10 @@
                 window.chartTweets[data.date] = data;
             }
         });
-		
+        
         function pollSort(a,b) {return a.x - b.x;}
         
-		function updateSeries() {
+        function updateSeries() {
             if (window.series.length === 2) {
                 window.series[0]['data'].sort(pollSort);
                 window.series[1]['data'].sort(pollSort);
@@ -159,37 +159,37 @@
                 window.series.push({ name: 'Obama', color: 'steelblue', data: window.chartDataDem });
                 window.series.push({ name: 'Romney', color: 'red', data: window.chartDataGOP });
             }
-		}
+        }
 
-		function initChart() {
-			window.graph = new Rickshaw.Graph( {
-		        element: document.querySelector("#chart"),
-		        renderer: 'line',
+        function initChart() {
+            window.graph = new Rickshaw.Graph( {
+                element: document.querySelector("#chart"),
+                renderer: 'line',
                 interpolation:'basis',
-		        width: 600,
-		        height: 400,
+                width: 600,
+                height: 400,
                 min: "auto",
                 max: "auto",
-		        series: window.series
-			} );
+                series: window.series
+            } );
 
             var slider = new Rickshaw.Graph.RangeSlider( {
                 graph: window.graph,
                 element: $('#slider')
             } );
 
-			var axes = new Rickshaw.Graph.Axis.Time( { graph: window.graph } );
-			var y_ticks = new Rickshaw.Graph.Axis.Y( {
-				element: document.querySelector("#y_axis"),
-				graph: window.graph,
-				orientation: 'left',
+            var axes = new Rickshaw.Graph.Axis.Time( { graph: window.graph } );
+            var y_ticks = new Rickshaw.Graph.Axis.Y( {
+                element: document.querySelector("#y_axis"),
+                graph: window.graph,
+                orientation: 'left',
                 tickFormat: Rickshaw.Fixtures.Number.formatKMBT
-			} );
-			
-			var legend = new Rickshaw.Graph.Legend( {
-			        element: document.querySelector('#legend'),
-			        graph: window.graph
-			} );
+            } );
+            
+            var legend = new Rickshaw.Graph.Legend( {
+                    element: document.querySelector('#legend'),
+                    graph: window.graph
+            } );
 
             var Hover = Rickshaw.Class.create(Rickshaw.Graph.HoverDetail, {
                 render: function(args) {
@@ -259,7 +259,7 @@
             var ticksTreatment = 'glow';
             
             window.graph.render();
-		}
+        }
         
         function displayContext(x) {
             var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
@@ -294,9 +294,9 @@
             context_box.innerHTML = content;
         }
 
-		function printChart() {
-			window.graph.update();
-		}
+        function printChart() {
+            window.graph.update();
+        }
 
         function main(){
             updateSeries();
@@ -310,8 +310,8 @@
                 printChart();
         }
         
-		setInterval("main();", 1000);
-	</script>
+        setInterval("main();", 1000);
+    </script>
 
 </body>
 </html>
