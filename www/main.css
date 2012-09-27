@@ -6,8 +6,8 @@
 * { padding: 0; margin: 0; }
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
+	font-family: PT Sans, Arial, sans-serif;
+	font-size: 14px;
 }
 #wrapper { 
 	margin: 0 auto;
@@ -33,6 +33,13 @@ body {
 	padding: 10px;
 	height: 400px;
 }
+#context_box {
+    width: 100%;
+    height: 80px;
+    background-color: #444444;
+    float: left;
+    clear: both;
+}
 #sub_content { 
 	width: 900px;
 	color: #333;
@@ -40,7 +47,7 @@ body {
 	background: #F2F2E6;
 	margin: 0px 0px 0px 0px;
 	padding: 10px;
-	height: 220px;
+	clear: both;
 }
 #footer { 
 	width: 900px;
@@ -50,6 +57,7 @@ body {
 	margin: 0px 0px 10px 0px;
 	padding: 10px;
 	text-align: center;
+	clear: both;
 }
 
 
@@ -69,7 +77,7 @@ body {
 
 #navlist li a { 
     color: #990000;
-    font: bold 120% Arial, Helvetica, sans-serif;
+    font: bold 120%;
     padding: 5px;
     text-decoration: none;
 }
@@ -80,7 +88,6 @@ body {
 
 #chart_container {
     display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
     float: left;
 }
 #chart {
@@ -89,12 +96,6 @@ body {
 #legend {
     float: left;
     margin-left: 15px;
-}
-#context_box {
-    width: 300px;
-    height: 400px;
-    background-color: #444444;
-    float: left;
 }
 #slider {
     float: left;
