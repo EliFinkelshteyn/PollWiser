@@ -55,6 +55,8 @@ body {
     padding: 5px;
     margin: 5px;
     background-color: #4d7fcf;
+    clear: left;
+    width: 98%;
 }
 .romney_tweet {
     float: left;
@@ -63,6 +65,8 @@ body {
     padding: 5px;
     margin: 5px;
     background-color: #ED4337;
+    clear: left;
+    width: 98%;
 }
 #o_bar {
 	float: left;
