@@ -1,6 +1,4 @@
 import shelve
-import simplejson as json
-from firebase import Firebase
 from dateutil import parser
 from time import mktime
 

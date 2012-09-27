@@ -26,26 +26,18 @@ body {
 #content { 
     width: 100%;
     color: #333;
-    border: 1px solid #ccc;
-    background: #F2F2E6;
     margin: 0px 0px 0px 0px;
     padding: 10px 0px 10px 0px;
-    height: 400px;
-}
-#context_box {
-    width: 100%;
-    height: 100px;
-    background-color: #F2F2E6;
-    float: left;
-    clear: both;
+    height: 100%;
 }
 .obama_tweet {
     width: 38%;
     float: left;
+    text-align: left;
     font-weight: bold;
     color: white;
     padding: 5px;
-    background-color: #4d7fcf;
+    background-color: #708ca7;
 }
 .info_text {
     color: gray;
@@ -60,7 +52,7 @@ body {
     font-weight: bold;
     color: white;
     padding: 5px;
-    background-color: #ED4337;
+    background-color: #de5252;
 }
 #sub_content { 
     width: 100%;
@@ -112,6 +104,7 @@ ul.navlist {
 
 #chart_container {
     display: inline-block;
+    background: #F2F2E6;
     float: left;
     width: 100%;
 }
@@ -123,15 +116,15 @@ ul.navlist {
     margin-left: 15px;
 }
 
-#context_box {
-    width: 100px;
-    height: 50px;
-    background-color: #444444;
-    float: left;
-}
-
 #slider {
     float: left;
+}
+#context_box {
+    width: 100%;
+    height: 100px;
+    background-color: #F2F2E6;
+    float: left;
+    clear: both;
 }
 #offset_form {
     float: left;

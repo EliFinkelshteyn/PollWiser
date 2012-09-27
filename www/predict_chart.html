@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" href="src/css/graph.css">
     <link type="text/css" rel="stylesheet" href="src/css/detail.css">
     <link type="text/css" rel="stylesheet" href="src/css/legend.css">
-    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="main_v1.css" />
     
     <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
@@ -83,13 +83,13 @@
                 <b>Data sources</b>
                 <ul class="navlist">
                     <li><a href="electoral-vote.com">electoral-vote.com</a></li>
+                    <li><a href="http://www.realclearpolitics.com/">RealClearPolitics</li>
                     <li><a href="twitter.com">twitter.com</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Team</h3>
-                
                 <ul class="navlist">
                     <li><a href="">Eli Finkelshteyn</a></li>
                     <li><a href="">Andrey Tabachnik</a></li>
@@ -102,9 +102,9 @@
             <div class="footer-section">
                 <h3>Shout-outs</h3>
                 <ul class="navlist">
-                    <li><a href="">Firebase</a></li>
-                    <li><a href="">Dataweek</a></li>
-                    <li><a href="">Angelhack</a></li>                    
+                    <li><a href="http://www.firebase.com/">Firebase</a></li>
+                    <li><a href="http://angelhack.com/">Angelhack</a></li>
+                    <li><a href="http://www.dataweek.co/">DataWeek</a></li>
                 </ul> 
             </div>
          </div>
@@ -262,9 +262,9 @@
         }
         
         function displayContext(x) {
-            var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
+            var date = new Date(x*1000);
+            var dateStr = '<span class="date">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</span>';
             var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
-            //var content = swatch + series.name + ": " + '<br />' + date;
             
             var content = '';
             if (window.chartTweets[x] === undefined ||
@@ -275,17 +275,21 @@
             else {
                 var obama_tweet = '';
                 var romney_tweet = '';
-                if (window.chartTweets[x]['obama_popular_tweets'].length > 0) {
+                if (window.chartTweets[x]['obama_popular_tweets'] !== undefined &&
+                    window.chartTweets[x]['obama_popular_tweets'].length > 0) {
+                    
                     obama_tweet +=  '@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
                         + ': <br />' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
                 }
-                if (window.chartTweets[x]['romney_popular_tweets'].length > 0) {
+                if (window.chartTweets[x]['romney_popular_tweets'] !== undefined && 
+                    window.chartTweets[x]['romney_popular_tweets'].length > 0) {
+                    
                     romney_tweet +=  '@' + window.chartTweets[x]['romney_popular_tweets'][0]['from_user']
                               + ': <br />' + window.chartTweets[x]['romney_popular_tweets'][0]['text'];
                 }
                 
                 content += '<span class="obama_tweet">'+obama_tweet+'</span>' +
-                    '<span class="info_text">'+date+'</span>' +
+                    '<span class="info_text">'+dateStr+'</span>' +
                     '<span class="romney_tweet">'+romney_tweet+'</span>';
             }
             
