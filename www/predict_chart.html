@@ -262,9 +262,9 @@
         }
         
         function displayContext(x) {
-            var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
+            var date = new Date(x*1000);
+            var dateStr = '<span class="date">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</span>';
             var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
-            //var content = swatch + series.name + ": " + '<br />' + date;
             
             var content = '';
             if (window.chartTweets[x] === undefined ||
@@ -275,17 +275,21 @@
             else {
                 var obama_tweet = '';
                 var romney_tweet = '';
-                if (window.chartTweets[x]['obama_popular_tweets'].length > 0) {
+                if (window.chartTweets[x]['obama_popular_tweets'] !== undefined &&
+                    window.chartTweets[x]['obama_popular_tweets'].length > 0) {
+                    
                     obama_tweet +=  '@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
                         + ': <br />' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
                 }
-                if (window.chartTweets[x]['romney_popular_tweets'].length > 0) {
+                if (window.chartTweets[x]['romney_popular_tweets'] !== undefined && 
+                    window.chartTweets[x]['romney_popular_tweets'].length > 0) {
+                    
                     romney_tweet +=  '@' + window.chartTweets[x]['romney_popular_tweets'][0]['from_user']
                               + ': <br />' + window.chartTweets[x]['romney_popular_tweets'][0]['text'];
                 }
                 
                 content += '<span class="obama_tweet">'+obama_tweet+'</span>' +
-                    '<span class="info_text">'+date+'</span>' +
+                    '<span class="info_text">'+dateStr+'</span>' +
                     '<span class="romney_tweet">'+romney_tweet+'</span>';
             }
             
