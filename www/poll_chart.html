@@ -33,13 +33,15 @@ function initChart() {
             xAxis: {
                 type: 'datetime',
                 dateTimeLabelFormats: {
-                    month: '%e. %b',
-                    year: '%b'
+					day:  '%b %e',
+					week: '%b %e',
+                    month: '%b %e',
+                    year:  '%b'
                 }
             },
             yAxis: {
                 title: {
-                    text: 'Snow depth (m)'
+                    text: '% of votes'
                 },
                 min: 30
             },
