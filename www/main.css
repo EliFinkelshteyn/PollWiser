@@ -51,39 +51,42 @@ body {
 	clear: both;
 }
 #footer { 
-	width: 900px;
+	width: 100%;
 	color: #333;
-	border: 1px solid #ccc;
 	background: #BD9C8C;
 	margin: 0px 0px 10px 0px;
-	padding: 10px;
-	text-align: center;
+	padding: 10px 0px 10px 0px;
 	clear: both;
+	height: 150px;
+    text-align: center;
 }
-
-
-#navlist ul {
-	list-style-type: none;
-	width: 100px;
+div.footer-section {
+    text-align: left;
+    display: inline-block;
+    width: 200px;
+}
+ul.navlist {
+	list-style: none;
+	list-style-image: none;
+	overflow: hidden;
+	margin: 0 20px 0 0;
+	padding: 0;
+	float: left;
+	text-align: left;
 } 
-
-#navlist li {
-    border: 1px dotted #999;
+.navlist li {
     border-width: 1px 0;
     margin: 5px 0;
-	display: inline;
-	list-style-type: none;
 	padding-right: 20px;
 }
 
-#navlist li a { 
+.navlist li a { 
     color: #990000;
     font: bold 120%;
-    padding: 5px;
     text-decoration: none;
 }
 
-#navlist li a:hover {
+.navlist li a:hover {
     background: #ffffcc;
 }
 
