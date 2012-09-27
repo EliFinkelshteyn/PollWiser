@@ -60,11 +60,10 @@ body {
 }
 div.footer-section {
     text-align: left;
-    width: 100px;
     display: inline-block;
+    width: 200px;
 }
 ul.navlist {
-	display: block;
 	list-style: none;
 	list-style-image: none;
 	overflow: hidden;
@@ -72,7 +71,6 @@ ul.navlist {
 	padding: 0;
 	float: left;
 	text-align: left;
-	width: 100px;
 } 
 .navlist li {
     border-width: 1px 0;
