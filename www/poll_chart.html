@@ -49,8 +49,8 @@ function initChart() {
 			    useHTML: true,
                 formatter: function() {
                 		displayContext(this.x / 1000);
-                		return false;
-					//return toolTipText(this.x / 1000, this.y);
+                		//return false;
+					return toolTipText(this.x / 1000, this.y);
                 }
             },
             
