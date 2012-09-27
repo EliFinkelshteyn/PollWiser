@@ -48,7 +48,9 @@ function initChart() {
             tooltip: {
 			    useHTML: true,
                 formatter: function() {
-					return toolTipText(this.x / 1000, this.y);
+                		displayContext(this.x / 1000);
+                		return false;
+					//return toolTipText(this.x / 1000, this.y);
                 }
             },
             
@@ -95,6 +97,43 @@ function toolTipText(x, y) {
     	return info_text;
 }
 
+function displayContext(x) {
+    var date = new Date(x*1000);
+    var dateStr = '<span class="date">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</span>';
+    var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
+    
+    var content = '';
+    if (window.chartTweets[x] === undefined ||
+        window.chartTweets[x]['obama_popular_tweets'] === undefined) {
+        
+        content +=  '<br />' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
+    }
+    else {
+        var obama_tweet = '';
+        var romney_tweet = '';
+        if (window.chartTweets[x]['obama_popular_tweets'] !== undefined &&
+            window.chartTweets[x]['obama_popular_tweets'].length > 0) {
+            
+            obama_tweet +=  '@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
+                + ': <br />' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
+        }
+        if (window.chartTweets[x]['romney_popular_tweets'] !== undefined && 
+            window.chartTweets[x]['romney_popular_tweets'].length > 0) {
+            
+            romney_tweet +=  '@' + window.chartTweets[x]['romney_popular_tweets'][0]['from_user']
+                      + ': <br />' + window.chartTweets[x]['romney_popular_tweets'][0]['text'];
+        }
+        
+        content += '<span class="obama_tweet">'+obama_tweet+'</span>' +
+            '<span class="info_text">'+dateStr+'</span>' +
+            '<span class="romney_tweet">'+romney_tweet+'</span>';
+    }
+    
+    //Add this in once proper css exists for a content box
+    var context_box = document.getElementById('context_box');
+    context_box.innerHTML = content;
+}
+        
 function initFirebase() {
 		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
 		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data_2');
@@ -152,6 +191,8 @@ $(function () {
 			<script src="vendor/Highcharts-2.3.2/js/modules/exporting.js"></script>
 	
 			<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+			</div>
+			<div id="context_box">
 			</div>
          </div>
          <!-- End Content -->
