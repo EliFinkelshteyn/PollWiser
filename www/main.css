@@ -1,87 +1,119 @@
 /*
       Created by Keith Donegan of Code-Sucks.com
-	  http://www.code-sucks.com
+      http://www.code-sucks.com
 */
 
 * { padding: 0; margin: 0; }
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
+    font-family: PT Sans, Arial, sans-serif;
+    font-size: 14px;
 }
 #wrapper { 
-	margin: 0 auto;
-	width: 922px;
+    margin: 0 auto;
+    width: 922px;
 }
 #header {
-	width: 900px;
-	color: #333;
-	padding: 0px;
-	border: 1px solid #ccc;
-	height: 200px;
-	margin: 10px 0px 0px 0px;
-	background: #BD9C8C;
-	text-align: center;
-	line-height: 50px;
+    width: 100%;
+    color: #333;
+    padding: 0px;
+    border: 1px solid #ccc;
+    margin: 10px 0px 0px 0px;
+    background: #BD9C8C;
+    text-align: center;
+    line-height: 50px;
 }
 #content { 
-	width: 900px;
-	color: #333;
-	border: 1px solid #ccc;
-	background: #F2F2E6;
-	margin: 0px 0px 0px 0px;
-	padding: 10px;
-	height: 400px;
+    width: 100%;
+    color: #333;
+    border: 1px solid #ccc;
+    background: #F2F2E6;
+    margin: 0px 0px 0px 0px;
+    padding: 10px 0px 10px 0px;
+    height: 400px;
+}
+#context_box {
+    width: 100%;
+    height: 100px;
+    background-color: #F2F2E6;
+    float: left;
+    clear: both;
+}
+.obama_tweet {
+    width: 38%;
+    float: left;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+    background-color: #4d7fcf;
+}
+.info_text {
+    color: gray;
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+.romney_tweet {
+    width: 38%;
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+    background-color: #ED4337;
 }
 #sub_content { 
-	width: 900px;
-	color: #333;
-	border: 1px solid #ccc;
-	background: #F2F2E6;
-	margin: 0px 0px 0px 0px;
-	padding: 10px;
-	height: 220px;
+    width: 100%;
+    color: #333;
+    background: #F2F2E6;
+    margin: 0px 0px 0px 0px;
+    padding: 10px 0px 10px 0px;
+    clear: both;
 }
 #footer { 
-	width: 900px;
-	color: #333;
-	border: 1px solid #ccc;
-	background: #BD9C8C;
-	margin: 0px 0px 10px 0px;
-	padding: 10px;
-	text-align: center;
+    width: 100%;
+    color: #333;
+    background: #BD9C8C;
+    margin: 0px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
+    clear: both;
+    height: 150px;
+    text-align: center;
 }
-
-
-#navlist ul {
-	list-style-type: none;
-	width: 100px;
+div.footer-section {
+    text-align: left;
+    display: inline-block;
+    width: 200px;
+}
+ul.navlist {
+    list-style: none;
+    list-style-image: none;
+    overflow: hidden;
+    margin: 0 20px 0 0;
+    padding: 0;
+    float: left;
+    text-align: left;
 } 
-
-#navlist li {
-    border: 1px dotted #999;
+.navlist li {
     border-width: 1px 0;
     margin: 5px 0;
-	display: inline;
-	list-style-type: none;
-	padding-right: 20px;
+    padding-right: 20px;
 }
 
-#navlist li a { 
+.navlist li a { 
     color: #990000;
-    font: bold 120% Arial, Helvetica, sans-serif;
-    padding: 5px;
+    font: bold 120%;
     text-decoration: none;
 }
 
-#navlist li a:hover {
+.navlist li a:hover {
     background: #ffffcc;
 }
 
 #chart_container {
     display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
     float: left;
+    width: 100%;
 }
 #chart {
     float: left;
@@ -90,12 +122,14 @@ body {
     float: left;
     margin-left: 15px;
 }
+
 #context_box {
     width: 100px;
     height: 50px;
     background-color: #444444;
     float: left;
 }
+
 #slider {
     float: left;
 }
@@ -112,7 +146,7 @@ body {
 }
 #cloud_frame {
     border-style: none;
-    width: 900px;
+    width: 100%;
     height: 200px;
 }
 .tooltip {

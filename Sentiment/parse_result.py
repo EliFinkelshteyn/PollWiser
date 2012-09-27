@@ -60,10 +60,6 @@ def get_sentiment(items):
 
     return result
 
-def push_data_to_db(parsed_data):
-    f = Firebase('http://demo.firebase.com/seifeet/twitter_data_2')
-    for key, value in parsed_data.items():
-        f.push(value)
 
 tweet_db = shelve.open('source.shelve')
 sentiment_db = shelve.open('sentiment_result.shelve')
@@ -73,5 +69,3 @@ parsed_data = parse_tweets(tweet_db, sentiment_db)
 parsed_db = shelve.open('parsed.shelve')
 parsed_db['data'] = parsed_data
 parsed_db.sync()
-
-push_data_to_db(parsed_data)
