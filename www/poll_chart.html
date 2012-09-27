@@ -49,8 +49,8 @@ function initChart() {
 			    useHTML: true,
                 formatter: function() {
                 		displayContext(this.x / 1000);
-                		//return false;
-					return toolTipText(this.x / 1000, this.y);
+                	    return false;
+					//return toolTipText(this.x / 1000, this.y);
                 }
             },
             
@@ -102,31 +102,34 @@ function displayContext(x) {
     var dateStr = '<span class="date">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</span>';
     var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
     
-    var content = '';
-    if (window.chartTweets[x] === undefined ||
-        window.chartTweets[x]['obama_popular_tweets'] === undefined) {
+    var content      = '';
+    var obama_tweet  = '';
+    var romney_tweet = '';
         
-        content +=  '<br />' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
-    }
-    else {
-        var obama_tweet = '';
-        var romney_tweet = '';
-        if (window.chartTweets[x]['obama_popular_tweets'] !== undefined &&
-            window.chartTweets[x]['obama_popular_tweets'].length > 0) {
-            
+    if (window.chartTweets[x] !== undefined  &&
+        window.chartTweets[x]['obama_popular_tweets'] !== undefined) {
+        	
+        if (window.chartTweets[x]['obama_popular_tweets'].length > 0) {
             obama_tweet +=  '@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
                 + ': <br />' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
         }
-        if (window.chartTweets[x]['romney_popular_tweets'] !== undefined && 
-            window.chartTweets[x]['romney_popular_tweets'].length > 0) {
-            
+    }
+    
+	if (window.chartTweets[x] !== undefined &&
+        window.chartTweets[x]['romney_popular_tweets'] !== undefined) {
+ 
+        if (window.chartTweets[x]['romney_popular_tweets'].length > 0) {
             romney_tweet +=  '@' + window.chartTweets[x]['romney_popular_tweets'][0]['from_user']
                       + ': <br />' + window.chartTweets[x]['romney_popular_tweets'][0]['text'];
         }
-        
+    }
+    
+    if (obama_tweet.length > 0 || romney_tweet.length > 0) {
         content += '<span class="info_text">'+dateStr+'</span>' +
             '<span class="romney_tweet">'+romney_tweet+'</span>' +
             '<span class="obama_tweet">'+obama_tweet+'</span>';
+    } else {
+		content +=  '<br />' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
     }
     
     //Add this in once proper css exists for a content box
