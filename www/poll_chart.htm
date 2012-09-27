@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<link type="text/css"rel="stylesheet" href="main.css" />
+    
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
+ 
+		<script type="text/javascript">
+function pollSort(a,b) {return a[0] - b[0];}
+
+function initChart() {
+    var chart;
+    window.chartDataDem.sort(pollSort);
+    window.chartDataGOP.sort(pollSort);
+    
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                zoomType: 'x',
+                type: 'spline'
+            },
+            title: {
+                text: 'Obama vs Romney'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    month: '%e. %b',
+                    year: '%b'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Snow depth (m)'
+                },
+                min: 0
+            },
+            tooltip: {
+			    useHTML: true,
+                formatter: function() {
+					return toolTipText(this.x / 1000, this.y);
+                }
+            },
+            
+            series: [{
+                name: 'Obama',
+                data: window.chartDataDem
+            }, {
+                name: 'Romney',
+                data: window.chartDataGOP
+            }]
+        });
+    });
+}
+function toolTipText(x, y) {
+    var info_text = "<div class='tooltip'>";
+    if (window.chartTweets[x] !== undefined &&
+    		window.chartTweets[x]['obama_popular_tweets'] !== undefined) {
+   
+		info_text +=  '@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
+              + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
+
+		info_text += "</div>";
+        return info_text;
+    }
+    return 'No Tweets for Today. Blame Twitter\'s 7 day max API';
+
+    if (window.chartTweets[x] === undefined ||
+    	    window.chartTweets[x]['obama_popular_tweets'] === undefined){
+        info_text +=  'No Tweets for Today. Blame Twitter\'s 7 day max API';
+        return info_text;
+    }
+
+    if (window.chartTweets[x]['obama_popular_tweets'].length > 1) {
+        info_text +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][1]['from_user']
+                  + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][1]['text'];
+    }
+    info_text +=  '<br><br>' + 'Obama mentions retweeted: ' + window.chartTweets[x]['obama_count'];
+    info_text +=  '<br>' + 'Romney mentions retweeted: ' + window.chartTweets[x]['romney_count'];
+    return info_text;
+}
+
+function initFirebase() {
+		var pollDataRef = new Firebase('https://demo.firebase.com/seifeet/rcp');
+		var twitDataRef = new Firebase('https://demo.firebase.com/seifeet/twitter_data_2');
+	    window.series       = [];
+		window.chartDataDem = [];
+		window.chartDataGOP = [];
+		window.chartDates   = {};
+        window.chartTweets  = {};
+		window.polls        = {};
+				
+		pollDataRef.on('child_added', function(snapshot) {
+			var data = snapshot.val();
+			//$("#poll_data").html(data.Date + '&nbsp;' + $("#poll_data").html());
+			if( window.polls[data.Poll] === undefined ) {
+				window.polls[data.Poll] = 0;
+			} else {
+				window.polls[data.Poll] = window.polls[data.Poll] + 1;
+			}
+			if( window.chartDates[data.Date] === undefined ) {
+				var dateUTCmili = parseInt(data.Date) * 1000;
+				window.chartDataDem.push([dateUTCmili, parseFloat(data.Obama)]);
+				window.chartDataGOP.push([dateUTCmili, parseFloat(data.Romney)]);
+				window.chartDates[data.Date] = data.Date;
+			}
+		});
+
+        twitDataRef.on('child_added', function(snapshot) {
+            var data = snapshot.val();
+
+            if( window.chartTweets[data.date] === undefined ) {
+                window.chartTweets[data.date] = data;
+            }
+        });
+}
+
+$(function () {
+	initFirebase();
+	setTimeout("initChart();", 4000);
+});
+		</script>
+	</head>
+	<body>
+		<script src="vendor/Highcharts-2.3.2/js/highcharts.js"></script>
+		<script src="vendor/Highcharts-2.3.2/js/modules/exporting.js"></script>
+		
+		<div id="info">&nbsp;</div>
+		<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+		</div>
+
+	</body>
+</html>
