@@ -5,7 +5,11 @@ __author__ = 'bill.yang'
 
 parsed_data = shelve.open('parsed.shelve')
 
-for key, value in parsed_data['data'].items():
+key_list = parsed_data['data'].keys()
+key_list.sort()
+
+for key in key_list:
+    value = parsed_data['data'][key]
     print key
     print('Candidate \t Negative \t Positive')
     non_neutral_count = value['obama_count'] - value['obama_sentiments'][1]

@@ -21,11 +21,11 @@ def run():
 
     for i in range(15):
         try:
-            url = 'http://search.twitter.com/search.json?q=obama&rpp=100&include_entities=true&result_type=mixed&until=2012-09-15&page='+str(page)
+            url = 'http://search.twitter.com/search.json?q=obama&rpp=100&include_entities=true&result_type=mixed&until=2012-09-27&page='+str(page)
             response = requests.get(url)
             craw_url(db, response)
 
-            url = 'http://search.twitter.com/search.json?q=romney&rpp=100&include_entities=true&result_type=mixed&until=2012-09-15&page='+str(page)
+            url = 'http://search.twitter.com/search.json?q=romney&rpp=100&include_entities=true&result_type=mixed&until=2012-09-27&page='+str(page)
             response = requests.get(url)
             craw_url(db, response)
 
