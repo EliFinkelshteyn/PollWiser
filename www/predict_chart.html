@@ -169,6 +169,8 @@
 			        graph: window.graph
 			} );
 
+
+
             var Hover = Rickshaw.Class.create(Rickshaw.Graph.HoverDetail, {
                 render: function(args) {
                     args.detail.sort(function(a, b) { return a.order - b.order }).forEach( function(d) {
@@ -198,6 +200,10 @@
                     xLabel.innerHTML = formattedXValue;
                     this.element.appendChild(xLabel);
 
+                    detail.forEach( function(d) {
+                        $("#context_box").html(this.formatter(d.series, domainX, d.value.y, formattedXValue, d.formattedYValue, d));
+                    }, this );
+
                     if (typeof this.onRender == 'function') {
                         this.onRender(args);
                     }
@@ -207,14 +213,13 @@
             var hoverDetail = new Hover( {
                 graph: window.graph,
                 formatter: function(series, x, y) {
-                    var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
-                    var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
-                    var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
+                    //var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
+                    //var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
+                    //var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
                     var info_text = '';
                     if (window.chartTweets[x] === undefined ||
                     window.chartTweets[x]['obama_popular_tweets'] === undefined){
                         info_text +=  '<br>' + 'No Tweets for Today. Blame Twitter\'s 7 day max API';
-                        return null;
                     }
                     info_text +=  '<br><br>@' + window.chartTweets[x]['obama_popular_tweets'][0]['from_user']
                               + ': <br>' + window.chartTweets[x]['obama_popular_tweets'][0]['text'];
@@ -224,10 +229,7 @@
                     }
                     info_text +=  '<br><br>' + 'Obama mentions retweeted: ' + window.chartTweets[x]['obama_count'];
                     info_text +=  '<br>' + 'Romney mentions retweeted: ' + window.chartTweets[x]['romney_count'];
-                    //Add this in once proper css exists for a content box
-                    //var context_box = document.getElementById('context_box');
-                    //context_box.innerHTML = content;
-                    return null;
+                    return info_text;
                 }
             } );
 
@@ -244,6 +246,22 @@
             var ticksTreatment = 'glow';
             
             window.graph.render();
+
+            var reposition = {};
+            reposition.positionContextBox = function(){
+                var contextBox = document.getElementById("context_box"),
+                        legend = $("#legend"),
+                        legendPos = legend.offset(),
+
+                        leftShift = legendPos.left + 'px',
+                        topShift = legendPos.top + 30 + legend.height() + 'px';
+
+                contextBox.style.position = 'absolute';
+                contextBox.style.left = leftShift;
+                contextBox.style.top = topShift;
+                contextBox.style.height = 320;
+            };
+            reposition.positionContextBox();
 		}
 
 		function printChart() {

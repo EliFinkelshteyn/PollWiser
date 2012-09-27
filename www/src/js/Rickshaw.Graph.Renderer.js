@@ -62,7 +62,6 @@ Rickshaw.Graph.Renderer = Rickshaw.Class.create( {
 	},
 
 	render: function() {
-
 		var graph = this.graph;
 
 		graph.vis.selectAll('*').remove();

@@ -137,7 +137,6 @@ Rickshaw.Graph.HoverDetail = Rickshaw.Class.create({
 	},
 
 	render: function(args) {
-
 		var detail = args.detail;
 		var domainX = args.domainX;
 

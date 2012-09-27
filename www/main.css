@@ -34,9 +34,10 @@ body {
 	height: 400px;
 }
 #context_box {
-    width: 100%;
+    width: 19%;
     height: 80px;
     background-color: #444444;
+    color: #ffffff;
     float: left;
     clear: both;
 }
