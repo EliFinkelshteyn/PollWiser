@@ -68,6 +68,18 @@ body {
     clear: left;
     width: 92%;
 }
+
+.num_tweets {
+    float: left;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    background-color: #444444;
+    clear: left;
+    width: 92%;
+}
+
 #o_bar {
 	float: left;
 	width: ; /* set as percentage of day's retweets */

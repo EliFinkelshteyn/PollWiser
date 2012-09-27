@@ -123,7 +123,11 @@ function displayContext(x) {
                       + ': <br />' + window.chartTweets[x]['romney_popular_tweets'][0]['text'];
         }
     }
-    
+
+    if (window.chartTweets[x] !== undefined) {
+        tweet_num =  '<br>' + 'Obama mentions retweeted: ' + window.chartTweets[x]['obama_count'];
+        tweet_num +=  '<br>' + 'Romney mentions retweeted: ' + window.chartTweets[x]['romney_count'];
+    }
     content += '<span class="info_text">'+dateStr+'</span>';
     
     if (obama_tweet.length > 0) {
@@ -132,6 +136,10 @@ function displayContext(x) {
     
 	if (romney_tweet.length > 0) {
 		content += '<span class="romney_tweet">'+romney_tweet+'</span>';
+    }
+
+    if (romney_tweet.length > 0 || obama_tweet.length > 0) {
+        content += '<span class="num_tweets">'+tweet_num+'</span>';
     }
  
     if (obama_tweet.length == 0 && romney_tweet.length == 0) {
