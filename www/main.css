@@ -36,7 +36,7 @@ body {
 #context_box {
     width: 100%;
     height: 80px;
-    background-color: #444444;
+    background-color: #AAAAAA;
     float: left;
     clear: both;
 }
@@ -89,6 +89,7 @@ body {
 #chart_container {
     display: inline-block;
     float: left;
+    width: 100%;
 }
 #chart {
     float: left;
@@ -115,4 +116,10 @@ body {
     border-style: none;
     width: 900px;
     height: 200px;
+}
+span.obama_tweet {
+    width: 40%;
+}
+span.romney_tweet {
+    width: 40%;
 }
